@@ -41,7 +41,7 @@ function BreadCrumbs(props) {
           <ol className="breadcrumbs">
             <li className="breadcrumbs-item"><Link to="/">Home</Link></li>
             <li className="breadcrumbs-item"><Link to={`/decks/${deckId}`}>{deck.name}</Link></li>
-            <li className="breadcrumbs-item active" aria-current="page">Add Card</li>
+            <li className="breadcrumbs-item active" aria-current="page">+ Card</li>
           </ol>
         </nav>
       );
@@ -66,11 +66,10 @@ function BreadCrumbs(props) {
         ? newDeckCrumbs()
         : editDeckCrumbs()
       : newItem
-      ? addCardCrumbs()
-      : editCardCrumbs();
+        ? addCardCrumbs()
+        : editCardCrumbs();
   }
-
-
+  
   //Export the function BreadCrumbs 
 export default BreadCrumbs;
 

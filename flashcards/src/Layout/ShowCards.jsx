@@ -6,7 +6,7 @@ function ShowCards(props) {
   return (
     <div>
       <div>
-        <Link to="/decks/new" className="btn btn-secondary m-3">Create a New Deck</Link>
+        <Link to="/decks/new" className="btn btn-secondary m-3">Create New Deck</Link>
       </div>
       <div className="container">
         <DeckItems />

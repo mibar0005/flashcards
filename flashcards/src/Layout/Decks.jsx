@@ -6,7 +6,7 @@ import {readDeck, deleteDeck, deleteCard} from "../utils/api";
 function Decks() {
     const [deck, setDeck] = useState({ cards: [] });
     const { deckId } = useParams();
-    let [dependsOn, setDependsOn] = useState(deck);
+    let [dependency, setDependency] = useState(deck);
   
     useEffect(() => {
       const abortController = new AbortController();
@@ -19,12 +19,13 @@ function Decks() {
           if (error.name === "AbortError") {
             console.log("Aborted", deck);
           } else {
-            throw error;
+            throw error;  
           }
         }
       }
-      if (!(dependsOn === deck)) setDependsOn(deck);
-    }, [dependsOn, deck, deckId]);
+      //  return () => abortController.abort()
+      if (!(dependency === deck)) setDependency(deck);
+    }, [dependency]);
   
     return (
       <section className="container">

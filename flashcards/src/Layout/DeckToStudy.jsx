@@ -17,6 +17,7 @@ function DeckToStudy(props) {
       });
     } catch (error) {
       if (error.name === "AbortError") {
+        console.log("Aborted", deck);
       } else {
         throw error;
       }
@@ -55,9 +56,15 @@ function DeckToStudy(props) {
             <h5 className="card-title">Card {`${deckIndex + 1} of ${deck.cards.length}`}</h5>
             <p className="card-text">{deck.cards[deckIndex].back}</p>
             <button className="btn btn-secondary" onClick={() => setFlipover(!flipover)}>Flipover</button>
-            <button className="btn btn-primary" onClick={() => {
+            <button className="btn btn-primary"
+             onClick={() => {
                 if (deckIndex + 1 === deck.cards.length) {
-                   (window.confirm("Restart cards?")) ? setDeckIndex(0) : setDeckIndex(deckIndex + 1); setFlipover(true);
+                  if (window.confirm("Restart cards?")) {
+                     setDeckIndex(0);
+                   }
+                   } else {
+                      setDeckIndex(deckIndex + 1);
+                      setFlipover(true);    
                 }}}>Next</button>
           </div>
         </div>

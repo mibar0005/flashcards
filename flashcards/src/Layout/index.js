@@ -1,17 +1,17 @@
 import DeckToStudy from "./DeckToStudy";
-import Form from "./Forms";
-import Deck from "./Deck";
+import Forms from "./Forms";
+import Decks from "./Decks";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import ShowCards from "./ShowCards";
 import {Switch, Route} from "react-router-dom";
-import React from "react";
+import React, {Fragment} from "react";
 
 //Use this in order to create all of the routers
 //that we will use for this application 
-function App() {
+function Layout() {
   return (
-    <>
+    <Fragment>
       <Header />
       <div className="container">
         {/* TODO: Implement the screen starting here */}
@@ -23,27 +23,27 @@ function App() {
             <DeckToStudy />
           </Route>
           <Route path="/decks/new">
-            <Form newItem={true} isDeck={true} />
+            <Forms newItem={true} isDeck={true} />
           </Route>
           <Route exact path="/decks/:deckId">
-            <Deck />
+            <Decks />
           </Route>
           <Route path="/decks/:deckId/edit">
-            <Form newItem={false} isDeck={true} />
+            <Forms newItem={false} isDeck={true} />
           </Route>
           <Route path="/decks/:deckId/cards/new">
-            <Form newItem={true} isDeck={false} />
+            <Forms newItem={true} isDeck={false} />
           </Route>
           <Route path="/decks/:deckId/cards/:cardId/edit">
-            <Form newItem={false} isDeck={false} />
+            <Forms newItem={false} isDeck={false} />
           </Route>
           <Route>
             <NotFound />
           </Route>
         </Switch>
       </div>
-    </>
+    </Fragment>
   );
 }
 
-export default App;
+export default Layout;

@@ -7,7 +7,6 @@ function DeckItems(props) {
   const [decks, setDecks] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
-
     try {
       listDecks(abortController.signal).then((elements) => setDecks(elements));
     } catch (error) {

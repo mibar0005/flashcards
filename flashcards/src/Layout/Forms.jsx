@@ -35,7 +35,8 @@ function Forms(props) {
           setDeck(element);
         });
       } catch (error) {
-        if (error.name == "AbortError") {
+        if (error.name === "AbortError") {
+          console.log("Aborted", deck);
         } else {
           throw error;
         }
@@ -48,11 +49,13 @@ function Forms(props) {
         });
       } catch (error) {
         if (error.name === "AbortError") {
+          console.log("Aborted", cards)
         } else {
           throw error;
         }
       }
-    }
+    } 
+    // return () => abortController.abort();
   }, []);
 
   useEffect(() => {
@@ -91,7 +94,7 @@ function Forms(props) {
         firstInput: deck.name,
         secondInput: deck.description,
       });
-    if (!isDeck && !newItem)
+    if (!isDeck && !newItem)            
       setFormInput({ firstInput: cards.front, secondInput: cards.back });
   }, [deck, cards]);
 
@@ -102,14 +105,14 @@ function Forms(props) {
         name: formInput.firstInput,
         description: formInput.secondInput,
       });
-      history.go(`/`);
+      history.push(`/`);
     } else if (!newItem && isDeck) {
       updateDeck({
         name: formInput.firstInput,
         description: formInput.secondInput,
         id: deckId,
       });
-      history.go(`/decks/${deckId}`);
+      history.push(`/decks/${deckId}`);
     } else if (newItem && !isDeck) {
       createCard(deckId, {
         front: formInput.firstInput,
@@ -122,7 +125,7 @@ function Forms(props) {
         front: formInput.firstInput,
         back: formInput.secondInput,
       });
-      history.go(`/decks/${deckId}`);
+      history.push(`/decks/${deckId}`);
     }
   }
 
@@ -154,7 +157,9 @@ function Forms(props) {
             className="form-control"
             id="firstTextArea"
             placeholder="Front side of card"
-            value={formInput.firstInput} onChange={(event) => setFormInput({
+            value={formInput.firstInput}
+            onChange={(event) =>
+               setFormInput({
                 ...formInput,
                 firstInput: event.target.value,
               })
@@ -177,14 +182,15 @@ function Forms(props) {
             id="secondTextArea"
             placeholder={isDeck ? "Description of deck" : "Back side of card"}
             value={formInput.secondInput}
-            onChange={(event) => setFormInput({
+            onChange={(event) =>
+              setFormInput({
                 ...formInput,
                 secondInput: event.target.value, })}>
               </textarea>
         </div>
         <div>
           <button className="btn btn-secondary" onClick={() =>
-              isDeck ? history.go("/") : history.go(`/decks/${deckId}`)}>
+              isDeck ? history.push("/") : history.push(`/decks/${deckId}`)}>
             {newItem ? "Done" : "Cancel"}
           </button>
           <button className="btn btn-primary mx-2" onClick={(event) => submitHandler(event)}>
